@@ -43,10 +43,10 @@ GET /api/{endpoint}/detail?articleLink={full_url}
 
 #### Parameter Detail
 
-| Parameter     | Tipe     | Deskripsi            | Wajib/Opsional |
-|---------------|----------|----------------------|----------------|
-| `endpoint`    | `string` | Nama kategori berita | **Wajib**      |
-| `articleLink` | `string` | URL lengkap artikel  | **Wajib**      |
+| Parameter     | Tipe     | Deskripsi                                                                              | Wajib/Opsional |
+|---------------|----------|----------------------------------------------------------------------------------------|----------------|
+| `endpoint`    | `string` | Nama kategori berita                                                                   | **Wajib**      |
+| `articleLink` | `string` | URL lengkap artikel, value bisa dilihat di response list artikel, bagian `articleLink` | **Wajib**      |
 
 ## Endpoint Reference
 
