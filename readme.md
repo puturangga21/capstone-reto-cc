@@ -12,7 +12,6 @@ Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! �
 - [Contoh Penggunaan](#contoh-penggunaan)
 - [Tipe Respon](#tipe-respon)
 - [Error Handling](#error-handling)
-- [Persyaratan](#persyaratan)
 
 ## API Reference
 
@@ -81,15 +80,7 @@ GET /api/{endpoint}/detail?articleLink={full_url}
 GET /api/organik?page=1
 ```
 
-### Contoh Mendapatkan Detail Artikel
-
-```http
-GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
-```
-
-## Tipe Respon
-
-### Respon Daftar Artikel
+### Contoh Response Daftar Artikel
 
 ```json
 {
@@ -107,7 +98,13 @@ GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-ar
 }
 ```
 
-### Respon Detail Artikel
+### Contoh Mendapatkan Detail Artikel
+
+```http
+GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
+```
+
+### Contoh Response Detail Artikel
 
 ```json
 {
