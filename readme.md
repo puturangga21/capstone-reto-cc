@@ -98,6 +98,11 @@ GET /api/organik?page=1
 }
 ```
 
+#### Poin Penting
+
+- value `articleLink` digunakan untuk parameter `articleLink` pada endpoint `detail`
+- contoh nya bisa dilihat pada endpoint dibawah ini
+
 ### Contoh Mendapatkan Detail Artikel
 
 ```http
