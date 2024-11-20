@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "google",
+    "prettier"
+  ],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "requireConfigFile": false
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "new-cap": "off",
+    "require-jsdoc": "off",
+    "semi": [
+      "error",
+      "always"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "no-unused-vars": "warn",
+    "max-len": [
+      "error",
+      {
+        "code": 100
+      }
+    ]
+  }
+}
