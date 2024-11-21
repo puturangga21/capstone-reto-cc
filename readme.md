@@ -26,6 +26,9 @@ http://localhost:2024/api/
 GET /api/{endpoint}?page=1
 ```
 
+- endpoint ini masih sementara ya, karena masih tahap development
+- tapi secara penggunaan nanti bakal sama kok
+
 #### Parameter
 
 | Parameter  | Tipe     | Deskripsi                                               | Wajib/Opsional        |
@@ -143,7 +146,7 @@ GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-ar
 <table>
   <tr>
     <td align="center"><a href="https://github.com/puturangga21"><img src="https://avatars.githubusercontent.com/u/61723244?v=4" width="100px;" alt=""/><br /><sub><b>Rangga Sutha</b></sub></a>
-    <td align="center"><a href="https://github.com/galanggg"><img src="https://placehold.jp/3d4070/ffffff/150x150.png" width="100px;" alt=""/><br /><sub><b>Edgar Kusuma</b></sub></a>
+    <td align="center"><a href=""><img src="https://placehold.jp/3d4070/ffffff/150x150.png" width="100px;" alt=""/><br /><sub><b>Edgar Kusuma</b></sub></a>
   </tr>
 </table>
 
