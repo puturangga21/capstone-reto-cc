@@ -4,10 +4,10 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/api/organik', async (req, res) => {
+router.get('/api/non-organik', async (req, res) => {
   const { page = 1 } = req.query;
 
-  const url = `${process.env.URL_CNBC_ORGANIK}&page=${page}`;
+  const url = `${process.env.URL_CNBC_NON_ORGANIK}&page=${page}`;
 
   try {
     const { data } = await axios.get(url);

@@ -1,7 +1,7 @@
 # CAPSTONE Bangkit ReTo
 
 Selamat datang di dokumentasi API ReTo teman-teman! Dokumen ini berisi informasi lengkap tentang cara menggunakan API
-untuk mengakses berita tentang pengelolaan sampah. Silakan dibaca dengan seksama guys!.
+untuk mengakses berita tentang pengelolaan sampah. Silakan dibaca dengan seksama guys, semangattt!
 
 Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! ❤️
 
@@ -10,7 +10,6 @@ Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! �
 - [API Reference](#api-reference)
 - [Endpoint Reference](#endpoint-reference)
 - [Contoh Penggunaan](#contoh-penggunaan)
-- [Tipe Respon](#tipe-respon)
 - [Error Handling](#error-handling)
 
 ## API Reference
@@ -37,40 +36,26 @@ GET /api/{endpoint}?page=1
 ### Endpoint Detail Artikel
 
 ```http
-GET /api/{endpoint}/detail?articleLink={full_url}
+GET /api/detail?articleLink={full_url}
 ```
 
 #### Parameter Detail
 
 | Parameter     | Tipe     | Deskripsi                                                                              | Wajib/Opsional |
 |---------------|----------|----------------------------------------------------------------------------------------|----------------|
-| `endpoint`    | `string` | Nama kategori berita                                                                   | **Wajib**      |
-| `articleLink` | `string` | URL lengkap artikel, value bisa dilihat di response list artikel, bagian `articleLink` | **Wajib**      |
+| `articleLink` | `string` | Digunakan untuk menampung `articleLink`                                                | **Wajib**      |
+| `full_url`    | `string` | URL lengkap artikel, value bisa dilihat di response list artikel, bagian `articleLink` | **Wajib**      |
 
 ## Endpoint Reference
 
 ### Daftar Endpoint Tersedia
 
-#### Kategori Sampah Organik
-
-| Endpoint          | Metode | Deskripsi                    |
-|-------------------|--------|------------------------------|
-| `/organik`        | GET    | Daftar berita sampah organik |
-| `/organik/detail` | GET    | Detail berita sampah organik |
-
-#### Kategori Sampah Non-Organik
-
-| Endpoint              | Metode | Deskripsi                        |
-|-----------------------|--------|----------------------------------|
-| `/non-organik`        | GET    | Daftar berita sampah non-organik |
-| `/non-organik/detail` | GET    | Detail berita sampah non-organik |
-
-#### Kategori Daur Ulang
-
-| Endpoint             | Metode | Deskripsi                |
-|----------------------|--------|--------------------------|
-| `/daur-ulang`        | GET    | Daftar berita daur ulang |
-| `/daur-ulang/detail` | GET    | Detail berita daur ulang |
+| Endpoint               | Metode | Deskripsi                        |
+|------------------------|--------|----------------------------------|
+| `/organik`             | GET    | Daftar berita sampah organik     |
+| `/non-organik`         | GET    | Daftar berita sampah non-organik |
+| `/daur-ulang`          | GET    | Daftar berita daur ulang         |
+| `/detail?articleLink=` | GET    | Detail berita sampah organik     |
 
 ## Contoh Penggunaan
 
@@ -141,7 +126,7 @@ GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-ar
 ```json
 {
   "success": false,
-  "message": "Deskripsi error spesifik"
+  "message": "Gagal mendapatkan data, baca dokumentasi yak! ༼ つ ◕_◕ ༽つ"
 }
 ```
 
@@ -154,6 +139,13 @@ GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-ar
 ## Kontributor
 
 - Tim Capstone Bangkit Cloud Computing ReTo
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/puturangga21"><img src="https://avatars.githubusercontent.com/u/61723244?v=4" width="100px;" alt=""/><br /><sub><b>Rangga Sutha</b></sub></a>
+    <td align="center"><a href="https://github.com/galanggg"><img src="https://placehold.jp/3d4070/ffffff/150x150.png" width="100px;" alt=""/><br /><sub><b>Edgar Kusuma</b></sub></a>
+  </tr>
+</table>
 
 ---
 
