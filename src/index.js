@@ -1,6 +1,11 @@
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
 
-const organikController = require('./controllers/organik.controller');
+import detailController from './controllers/detail.controller.js';
+import organikController from './controllers/organik.controller.js';
+import nonOrganikController from './controllers/non-organik.controller.js';
+
+dotenv.config();
 
 const app = express();
 const PORT = 2024;
@@ -12,7 +17,9 @@ app.get('/', (req, res) => {
   );
 });
 
+app.use(detailController);
 app.use(organikController);
+app.use(nonOrganikController);
 
 app.listen(PORT, () => {
   console.log(`Server API ReTo berjalan pada http://localhost:${PORT} 🟢`);
