@@ -94,7 +94,7 @@ GET /api/organik?page=1
 ### Contoh Mendapatkan Detail Artikel
 
 ```http
-GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
+GET /api/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
 ```
 
 ### Contoh Response Detail Artikel
@@ -146,7 +146,7 @@ GET /api/organik/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-ar
 <table>
   <tr>
     <td align="center"><a href="https://github.com/puturangga21"><img src="https://avatars.githubusercontent.com/u/61723244?v=4" width="100px;" alt=""/><br /><sub><b>Rangga Sutha</b></sub></a>
-    <td align="center"><a href=""><img src="https://placehold.jp/3d4070/ffffff/150x150.png" width="100px;" alt=""/><br /><sub><b>Edgar Kusuma</b></sub></a>
+    <td align="center"><a href="https://github.com/edgarkusuma07"><img src="https://avatars.githubusercontent.com/u/114984440?v=4" width="100px;" alt=""/><br /><sub><b>Edgar Kusuma</b></sub></a>
   </tr>
 </table>
 
