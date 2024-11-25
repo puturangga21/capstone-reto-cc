@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
-import detailController from './controllers/detail.controller.js';
-import organikController from './controllers/organik.controller.js';
-import nonOrganikController from './controllers/non-organik.controller.js';
+import detailRoute from './routes/detail.route.js';
+import organicRoute from './routes/organik.route.js';
+import nonOrganicRoute from './routes/non-organik.route.js';
 
 dotenv.config();
 
@@ -17,9 +17,9 @@ app.get('/', (req, res) => {
   );
 });
 
-app.use(detailController);
-app.use(organikController);
-app.use(nonOrganikController);
+app.use(detailRoute);
+app.use(organicRoute);
+app.use(nonOrganicRoute);
 
 app.listen(PORT, () => {
   console.log(`Server API ReTo berjalan pada http://localhost:${PORT} 🟢`);

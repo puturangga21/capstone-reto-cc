@@ -1,10 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import express from 'express';
 
-const router = express.Router();
-
-router.get('/api/organik', async (req, res) => {
+export const getAllOrganic = async (req, res) => {
   const { page = 1 } = req.query;
 
   const url = `${process.env.URL_CNBC_ORGANIK}&page=${page}`;
@@ -48,13 +45,9 @@ router.get('/api/organik', async (req, res) => {
     });
   } catch (e) {
     console.error('Error:', e);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: 'Gagal mendapatkan data, baca dokumentasi yak! ༼ つ ◕_◕ ༽つ',
-      });
+    res.status(500).json({
+      success: false,
+      message: 'Gagal mendapatkan data, baca dokumentasi yak! ༼ つ ◕_◕ ༽つ',
+    });
   }
-});
-
-export default router;
+};

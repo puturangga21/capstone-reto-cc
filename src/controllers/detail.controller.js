@@ -1,10 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import express from 'express';
 
-const router = express.Router();
-
-router.get('/api/detail', async (req, res) => {
+export const getDetailNews = async (req, res) => {
   const { articleLink } = req.query;
 
   if (!articleLink || !articleLink.startsWith(process.env.URL_CNBC_BASE)) {
@@ -46,6 +43,4 @@ router.get('/api/detail', async (req, res) => {
       message: 'Gagal mendapatkan data, baca dokumentasi yak! ༼ つ ◕_◕ ༽つ',
     });
   }
-});
-
-export default router;
+};
