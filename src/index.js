@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
+import authRoute from './routes/auth.route.js';
 import detailRoute from './routes/detail.route.js';
 import organicRoute from './routes/organik.route.js';
 import nonOrganicRoute from './routes/non-organik.route.js';
@@ -8,7 +10,10 @@ import nonOrganicRoute from './routes/non-organik.route.js';
 dotenv.config();
 
 const app = express();
-const PORT = 2024;
+const PORT = process.env.PORT || 8080;
+
+app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
@@ -17,6 +22,7 @@ app.get('/', (req, res) => {
   );
 });
 
+app.use(authRoute);
 app.use(detailRoute);
 app.use(organicRoute);
 app.use(nonOrganicRoute);
