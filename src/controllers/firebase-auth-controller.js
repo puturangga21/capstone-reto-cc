@@ -7,18 +7,18 @@ import {
   sendPasswordResetEmail,
 } from '../config/firebase.js';
 import { prisma } from '../config/prisma.js';
+import { authSchema, resetPasswordSchema } from '../schema/auth.schema.js';
 
 const auth = getAuth();
 
 class FirebaseAuthController {
   async registerUser(req, res) {
     const { email, password } = req.body;
+    const { error } = authSchema.validate({ email, password });
 
-    // cek kalau request body kosong
-    if (!email || !password) {
+    if (error) {
       return res.status(422).json({
-        email: 'Email wajib diisi',
-        password: 'Password wajib diisi',
+        error: error.details.map((e) => e.message),
       });
     }
 
@@ -58,7 +58,7 @@ class FirebaseAuthController {
       } else {
         // kalau email sudah dipakai
         res.status(409).json({
-          message: 'User sudah digunakan oleh user lain',
+          error: 'User sudah digunakan oleh user lain',
         });
       }
     } catch (error) {
@@ -72,11 +72,11 @@ class FirebaseAuthController {
 
   async loginUser(req, res) {
     const { email, password } = req.body;
+    const { error } = authSchema.validate({ email, password });
 
-    if (!email || !password) {
+    if (error) {
       return res.status(422).json({
-        email: 'Email wajib diisi',
-        password: 'Password wajib diisi',
+        error: error.details.map((e) => e.message),
       });
     }
 
@@ -123,21 +123,23 @@ class FirebaseAuthController {
     }
   }
 
-  resetPassword(req, res) {
+  async resetPassword(req, res) {
     const { email } = req.body;
-    if (!email) {
+    const { error } = resetPasswordSchema.validate({ email });
+
+    if (error) {
       return res.status(422).json({
-        email: 'Email wajib diisi',
+        error: error.details.map((e) => e.message),
       });
     }
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        res.status(200).json({ message: 'Email reset password berhasil dikirim!' });
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-      });
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      res.status(200).json({ message: 'Email reset password berhasil dikirim!' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
   }
 }
 
