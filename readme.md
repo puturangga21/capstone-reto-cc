@@ -1,7 +1,7 @@
 # CAPSTONE Bangkit ReTo
 
 Selamat datang di dokumentasi API ReTo teman-teman! Dokumen ini berisi informasi lengkap tentang cara menggunakan API
-untuk mengakses berita tentang pengelolaan sampah. Silakan dibaca dengan seksama guys, semangattt!
+untuk mengakses berita tentang pengelolaan sampah dan fitur autentikasi. Silakan dibaca dengan seksama guys, semangat!
 
 Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! ❤️
 
@@ -9,7 +9,8 @@ Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! �
 
 - [API Reference](#api-reference)
 - [Endpoint Reference](#endpoint-reference)
-- [Contoh Penggunaan](#contoh-penggunaan)
+- [Autentikasi](#contoh-penggunaan-endpoint-autentikasi)
+- [Berita](#contoh-penggunaan-endpoint-berita)
 - [Error Handling](#error-handling)
 
 ## API Reference
@@ -20,14 +21,169 @@ Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! �
 http://localhost:2024/api/
 ```
 
-### Endpoint Umum
-
-```http
-GET /api/{endpoint}?page=1
-```
-
 - endpoint ini masih sementara ya, karena masih tahap development
 - tapi secara penggunaan nanti bakal sama kok
+
+## Endpoint Reference
+
+### Daftar Endpoint Tersedia
+
+#### Endpoint Berita
+
+| Endpoint               | Metode | Deskripsi                        |
+|------------------------|--------|----------------------------------|
+| `/organik`             | GET    | Daftar berita sampah organik     |
+| `/non-organik`         | GET    | Daftar berita sampah non-organik |
+| `/daur-ulang`          | GET    | Daftar berita daur ulang         |
+| `/detail?articleLink=` | GET    | Detail berita sampah             |
+
+#### Endpoint Autentikasi
+
+| Endpoint          | Metode | Deskripsi                  | Request Body          |
+|-------------------|--------|----------------------------|-----------------------|
+| `/register`       | POST   | Mendaftarkan user baru     | `{ email, password }` |
+| `/login`          | POST   | Login pengguna             | `{ email, password }` |
+| `/logout`         | POST   | Logout pengguna            | Tidak memerlukan body |
+| `/reset-password` | POST   | Kirim email reset password | `{ email }`           |
+
+## Contoh Penggunaan Endpoint Autentikasi
+
+### Registrasi Pengguna
+
+```http
+POST /api/register
+```
+
+#### Request Body
+
+```json
+{
+  "email": "edgarkusuma@gmail.com",
+  "password": "passwordMinimal6Karakter"
+}
+```
+
+#### Response Sukses
+
+```json
+{
+  "message": "Email verifikasi terkirim! user berhasil dibuat!",
+  "user": {
+    "id": "user_id",
+    "email": "edgarkusuma@gmail.com"
+  }
+}
+```
+
+#### Response Gagal
+
+```json
+{
+  "error": [
+    "Format email tidak valid"
+  ]
+}
+```
+
+### Login Pengguna
+
+```http
+POST /api/login
+```
+
+#### Request Body
+
+```json
+{
+  "email": "edgarkusuma@gmail.com",
+  "password": "passwordMinimal6Karakter"
+}
+```
+
+#### Response Sukses
+
+```json
+{
+  "message": "User berhasil login",
+  "userCredential": {
+    ...
+  }
+}
+```
+
+#### Response Gagal
+
+```json
+{
+  "error": [
+    "Format email tidak valid"
+  ]
+}
+```
+
+### Logout Pengguna
+
+```http
+POST /api/logout
+```
+
+#### Response Sukses
+
+```json
+{
+  "message": "User berhasil logout"
+}
+```
+
+### Reset Password
+
+```http
+POST /api/reset-password
+```
+
+#### Request Body
+
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+#### Response Sukses
+
+```json
+{
+  "message": "Email reset password berhasil dikirim!"
+}
+```
+
+## Validasi Input
+
+Ini spesifikasi dari setiap endpoint autentikasi. Silahkan dibaca temen-temen:
+
+### Skema Validasi Registrasi dan Login
+
+| Field    | Tipe   | Aturan Validasi      | 
+|----------|--------|----------------------|
+| Email    | String | - Wajib diisi        | 
+|          |        | - Format email valid | 
+| Password | String | - Wajib diisi        | 
+|          |        | - Minimal 6 karakter |
+
+### Skema Validasi Reset Password
+
+| Field | Tipe   | Aturan Validasi      | 
+|-------|--------|----------------------|
+| Email | String | - Wajib diisi        | 
+|       |        | - Format email valid | 
+
+## Contoh Penggunaan Endpoint Berita
+
+### Mendapatkan Daftar Artikel
+
+```http
+GET /api/organik?page=1
+```
 
 #### Parameter
 
@@ -36,39 +192,7 @@ GET /api/{endpoint}?page=1
 | `endpoint` | `string` | Nama kategori berita (organik, non-organik, daur-ulang) | **Wajib**             |
 | `page`     | `number` | Nomor halaman untuk pagination                          | Opsional (default: 1) |
 
-### Endpoint Detail Artikel
-
-```http
-GET /api/detail?articleLink={full_url}
-```
-
-#### Parameter Detail
-
-| Parameter     | Tipe     | Deskripsi                                                                              | Wajib/Opsional |
-|---------------|----------|----------------------------------------------------------------------------------------|----------------|
-| `articleLink` | `string` | Digunakan untuk menampung `articleLink`                                                | **Wajib**      |
-| `full_url`    | `string` | URL lengkap artikel, value bisa dilihat di response list artikel, bagian `articleLink` | **Wajib**      |
-
-## Endpoint Reference
-
-### Daftar Endpoint Tersedia
-
-| Endpoint               | Metode | Deskripsi                        |
-|------------------------|--------|----------------------------------|
-| `/organik`             | GET    | Daftar berita sampah organik     |
-| `/non-organik`         | GET    | Daftar berita sampah non-organik |
-| `/daur-ulang`          | GET    | Daftar berita daur ulang         |
-| `/detail?articleLink=` | GET    | Detail berita sampah organik     |
-
-## Contoh Penggunaan
-
-### Contoh Mendapatkan Daftar Artikel
-
-```http
-GET /api/organik?page=1
-```
-
-### Contoh Response Daftar Artikel
+#### Response Body
 
 ```json
 {
@@ -91,13 +215,20 @@ GET /api/organik?page=1
 - value `articleLink` digunakan untuk parameter `articleLink` pada endpoint `detail`
 - contoh nya bisa dilihat pada endpoint dibawah ini
 
-### Contoh Mendapatkan Detail Artikel
+### Mendapatkan Detail Artikel
 
 ```http
 GET /api/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
 ```
 
-### Contoh Response Detail Artikel
+#### Parameter Detail
+
+| Parameter     | Tipe     | Deskripsi                                                                              | Wajib/Opsional |
+|---------------|----------|----------------------------------------------------------------------------------------|----------------|
+| `articleLink` | `string` | Digunakan untuk menampung `articleLink`                                                | **Wajib**      |
+| `full_url`    | `string` | URL lengkap artikel, value bisa dilihat di response list artikel, bagian `articleLink` | **Wajib**      |
+
+#### Response Body
 
 ```json
 {
@@ -117,14 +248,16 @@ GET /api/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
 
 ### Jenis Error yang Mungkin Terjadi
 
-| Kode Status | Deskripsi                        |
-|-------------|----------------------------------|
-| 200         | Berhasil                         |
-| 400         | Parameter salah atau tidak valid |
-| 404         | Artikel tidak ditemukan          |
-| 500         | Kesalahan server internal        |
+| Kode Status | Deskripsi                           |
+|-------------|-------------------------------------|
+| 200         | Berhasil                            |
+| 400         | Parameter salah atau tidak valid    |
+| 401         | Tidak terautentikasi                |
+| 404         | Artikel atau sumber tidak ditemukan |
+| 422         | Validasi data gagal                 |
+| 500         | Kesalahan server internal           |
 
-### Contoh Respon Error
+### Contoh Response Error
 
 ```json
 {
@@ -138,10 +271,11 @@ GET /api/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
 - Endpoint masih dalam pengembangan
 - Daftar endpoint dapat berubah sewaktu-waktu
 - Dokumentasi akan terus diperbarui seiring perkembangan proyek
+- Gunakan fitur autentikasi untuk mengamankan akses aplikasi
 
 ## Kontributor
 
-- Tim Capstone Bangkit Cloud Computing ReTo
+### Tim Capstone Bangkit Cloud Computing ReTo
 
 <table>
   <tr>
