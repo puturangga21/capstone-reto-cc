@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   res.send(
     'Selamat menjalankan Capstone teman-teman! ❤️\nBiar ga bingung, baca dokumentasi ini yaa!\nAkhir kata, jangan lupa tidur, dan semoga bantal kalian dingin terus malam ini!'
