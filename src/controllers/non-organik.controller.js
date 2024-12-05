@@ -7,7 +7,9 @@ export const getNonOrganic = async (req, res) => {
 
   try {
     // buka browser dan buka tab baru
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
+    });
     const pageInstance = await browser.newPage();
 
     // pergi ke url tujuan
