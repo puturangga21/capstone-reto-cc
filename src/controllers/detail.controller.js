@@ -15,6 +15,7 @@ export const getDetailNews = async (req, res) => {
     // buka browser dan buka tab baru
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
+      args: ['--disable-gpu', '--no-sandbox', '--disable-setuid-sandbox', '--no-zygote'],
     });
     const pageInstance = await browser.newPage();
 
