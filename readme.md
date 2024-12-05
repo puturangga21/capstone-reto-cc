@@ -18,7 +18,7 @@ Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! �
 ### Base URL
 
 ```http
-http://localhost:2024/api/
+http://34.101.128.116/api/
 ```
 
 - endpoint ini masih sementara ya, karena masih tahap development
