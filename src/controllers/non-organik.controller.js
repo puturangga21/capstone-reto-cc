@@ -1,34 +1,37 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+import puppeteer from 'puppeteer';
 
 export const getNonOrganic = async (req, res) => {
   const { page = 1 } = req.query;
-
-  const url = `${process.env.URL_CNBC_NON_ORGANIK}&page=${page}`;
+  const baseUrl = process.env.BASE_ARTICLE_URL;
+  const url = `${baseUrl}/page/${page}/?s=non+organik`;
 
   try {
-    const { data } = await axios.get(url);
-    const $ = cheerio.load(data);
-    const articles = [];
+    // buka browser dan buka tab baru
+    const browser = await puppeteer.launch();
+    const pageInstance = await browser.newPage();
 
-    $('div.nhl-list.flex.flex-col.gap-6').each((index, el) => {
-      const title = $(el).find('h2.font-semibold.text-23').text().trim();
-      const createdAt = $(el).find('span.text-xs.text-gray').text().trim();
-      const articleLink = $(el).find('a.group.flex.gap-4.items-center').attr('href');
-      const imageUrl = $(el).find('img.w-full.object-cover').attr('src');
+    // pergi ke url tujuan
+    await pageInstance.goto(url);
 
-      if (title && createdAt && articleLink && imageUrl) {
-        articles.push({
-          title,
-          createdAt,
-          articleLink,
-          imageUrl,
-        });
-      } else {
-        console.log('Artikel gagal diambil');
-      }
+    // ambil data
+    const articles = await pageInstance.$$eval('article', (articles) => {
+      return articles.map((article) => {
+        const img = article.querySelector('img')?.getAttribute('data-src');
+        const title = article.querySelector('header > h3 > a')?.innerText;
+        const description = article
+          .querySelector('div.mt-4 > div.text-sm > p, div.mt-4 > div.text-sm')
+          ?.innerText.trim();
+        const articleLink = article.querySelector('div > a')?.getAttribute('href');
+
+        if (img && title && description && articleLink) {
+          return { img, title, description, articleLink };
+        } else {
+          console.log('Artikel gagal diambil');
+        }
+      });
     });
 
+    // cek dulu kalo halaman kosong
     if (articles.length === 0) {
       return res.status(404).json({
         success: false,
@@ -37,12 +40,14 @@ export const getNonOrganic = async (req, res) => {
       });
     }
 
+    // response kalo sukses
     res.status(200).json({
       success: true,
       message: 'Berhasil mengambil data',
       page: parseInt(page, 10),
       articles,
     });
+    await browser.close();
   } catch (e) {
     console.error('Error:', e);
     res.status(500).json({

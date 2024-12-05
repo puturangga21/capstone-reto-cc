@@ -1,6 +1,9 @@
+src/controllers/old
 node_modules/
 .idea
 .env
+.env-old
+
 
 FirebaseService.json
 readme_old.md
