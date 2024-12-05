@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import authRoute from './routes/auth.route.js';
 import detailRoute from './routes/detail.route.js';
 import organicRoute from './routes/organik.route.js';
+import daurUlangRoute from './routes/daur-ulang.route.js';
 import nonOrganicRoute from './routes/non-organik.route.js';
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.get('/', async (req, res) => {
 app.use(authRoute);
 app.use(detailRoute);
 app.use(organicRoute);
+app.use(daurUlangRoute);
 app.use(nonOrganicRoute);
 
 app.listen(PORT, () => {
