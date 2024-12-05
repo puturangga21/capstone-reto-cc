@@ -20,7 +20,7 @@ export const getDetailNews = async (req, res) => {
     const pageInstance = await browser.newPage();
 
     // pergi ke url tujuan
-    await pageInstance.goto(articleLink);
+    await pageInstance.goto(url, { waitUntil: 'networkidle2' });
 
     // ambil data
     const title = await pageInstance.$eval('article > header > h1', (el) => el.innerText);

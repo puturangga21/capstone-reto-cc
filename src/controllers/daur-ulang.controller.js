@@ -14,7 +14,7 @@ export const getAllDaurUlang = async (req, res) => {
     const pageInstance = await browser.newPage();
 
     // pergi ke url tujuan
-    await pageInstance.goto(url);
+    await pageInstance.goto(url, { waitUntil: 'networkidle2' });
 
     // ambil data
     const articles = await pageInstance.$$eval('article', (articles) => {
