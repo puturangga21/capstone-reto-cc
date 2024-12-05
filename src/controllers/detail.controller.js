@@ -1,10 +1,9 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+import puppeteer from 'puppeteer';
 
 export const getDetailNews = async (req, res) => {
   const { articleLink } = req.query;
 
-  if (!articleLink || !articleLink.startsWith(process.env.URL_CNBC_BASE)) {
+  if (!articleLink || !articleLink.startsWith(process.env.BASE_ARTICLE_URL)) {
     return res.status(400).json({
       success: false,
       message:
@@ -13,14 +12,23 @@ export const getDetailNews = async (req, res) => {
   }
 
   try {
-    const { data } = await axios.get(articleLink);
-    const $ = cheerio.load(data);
+    // buka browser dan buka tab baru
+    const browser = await puppeteer.launch();
+    const pageInstance = await browser.newPage();
 
-    const title = $('h1.mb-4.text-32.font-extrabold').text().trim();
-    const author = $('div.mb-1.text-base.font-semibold').text().trim();
-    const createdAt = $('div.text-cm.text-gray').text().trim();
-    const imgUrl = $('img.mb-3.aspect-video.w-full.object-cover').attr('src');
-    const detailTeks = $('div.detail-text p').text().trim();
+    // pergi ke url tujuan
+    await pageInstance.goto(articleLink);
+
+    // ambil data
+    const title = await pageInstance.$eval('article > header > h1', (el) => el.innerText);
+    const author = await pageInstance.$eval('header > div > span > span a', (el) => el.innerText);
+    const createdAt = await pageInstance.$eval('span > a > time.published', (el) => el.innerText);
+    const imgUrl = await pageInstance.$eval('figure.aligncenter > img', (el) =>
+      el.getAttribute('data-src')
+    );
+    const detailTeks = await pageInstance.$$eval('div.prose > *', (elements) =>
+      elements.map((el) => el.innerText.trim()).filter((text) => text !== '')
+    );
 
     if (!title || !author || !createdAt || !imgUrl || !detailTeks) {
       return res.status(404).json({ success: false, message: 'Detail artikel tidak ditemukan' });
@@ -37,6 +45,7 @@ export const getDetailNews = async (req, res) => {
         detailTeks,
       },
     });
+    await browser.close();
   } catch (e) {
     res.status(500).json({
       success: false,
