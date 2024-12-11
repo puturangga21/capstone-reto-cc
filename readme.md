@@ -18,11 +18,8 @@ Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! �
 ### Base URL
 
 ```http
-http://34.101.128.116/api/
+http://34.101.128.116/api
 ```
-
-- endpoint ini masih sementara ya, karena masih tahap development
-- tapi secara penggunaan nanti bakal sama kok
 
 ## Endpoint Reference
 
@@ -135,28 +132,6 @@ POST /api/logout
 }
 ```
 
-### Reset Password
-
-```http
-POST /api/reset-password
-```
-
-#### Request Body
-
-```json
-{
-  "email": "user@example.com"
-}
-```
-
-#### Response Sukses
-
-```json
-{
-  "message": "Email reset password berhasil dikirim!"
-}
-```
-
 ## Validasi Input
 
 Ini spesifikasi dari setiap endpoint autentikasi. Silahkan dibaca temen-temen:
@@ -218,7 +193,7 @@ GET /api/organik?page=1
 ### Mendapatkan Detail Artikel
 
 ```http
-GET /api/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
+GET /api/detail?articleLink=https://www.contoh-artikel
 ```
 
 #### Parameter Detail
@@ -268,10 +243,8 @@ GET /api/detail?articleLink=https://www.cnbcindonesia.com/news/contoh-artikel
 
 ## Catatan Tambahan
 
-- Endpoint masih dalam pengembangan
 - Daftar endpoint dapat berubah sewaktu-waktu
 - Dokumentasi akan terus diperbarui seiring perkembangan proyek
-- Gunakan fitur autentikasi untuk mengamankan akses aplikasi
 
 ## Kontributor
 
