@@ -1,16 +1,16 @@
 # CAPSTONE Bangkit ReTo
 
-Selamat datang di dokumentasi API ReTo teman-teman! Dokumen ini berisi informasi lengkap tentang cara menggunakan API
-untuk mengakses berita tentang pengelolaan sampah dan fitur autentikasi. Silakan dibaca dengan seksama guys, semangat!
+Welcome to the ReTo API documentation guys! This document contains complete information on how to use the API to access
+news about waste management and authentication features. Please read it carefully guys, keep up the spirit!
 
-Selamat mengerjakan teman-teman! 🌍♻️ Jangan lupa istirahat yang cukup! ❤️
+Good luck with your work, friends! 🌍♻️ Don't forget to get enough rest! ❤️
 
-## Daftar Isi
+## List of contents
 
 - [API Reference](#api-reference)
 - [Endpoint Reference](#endpoint-reference)
-- [Autentikasi](#contoh-penggunaan-endpoint-autentikasi)
-- [Berita](#contoh-penggunaan-endpoint-berita)
+- [Authentication](#contoh-penggunaan-endpoint-autentikasi)
+- [News](#contoh-penggunaan-endpoint-berita)
 - [Error Handling](#error-handling)
 
 ## API Reference
@@ -25,7 +25,7 @@ http://34.101.128.116/api
 
 ### Daftar Endpoint Tersedia
 
-#### Endpoint Berita
+#### News Endpoint
 
 | Endpoint               | Metode | Deskripsi                        |
 |------------------------|--------|----------------------------------|
@@ -34,7 +34,7 @@ http://34.101.128.116/api
 | `/daur-ulang`          | GET    | Daftar berita daur ulang         |
 | `/detail?articleLink=` | GET    | Detail berita sampah             |
 
-#### Endpoint Autentikasi
+#### Authentication Endpoint
 
 | Endpoint          | Metode | Deskripsi                  | Request Body          |
 |-------------------|--------|----------------------------|-----------------------|
@@ -43,9 +43,9 @@ http://34.101.128.116/api
 | `/logout`         | POST   | Logout pengguna            | Tidak memerlukan body |
 | `/reset-password` | POST   | Kirim email reset password | `{ email }`           |
 
-## Contoh Penggunaan Endpoint Autentikasi
+## Authentication Endpoint Usage Examples
 
-### Registrasi Pengguna
+### User Registration
 
 ```http
 POST /api/register
@@ -60,7 +60,7 @@ POST /api/register
 }
 ```
 
-#### Response Sukses
+#### Response Success
 
 ```json
 {
@@ -72,7 +72,7 @@ POST /api/register
 }
 ```
 
-#### Response Gagal
+#### Response Failed
 
 ```json
 {
@@ -82,7 +82,7 @@ POST /api/register
 }
 ```
 
-### Login Pengguna
+### User Login
 
 ```http
 POST /api/login
@@ -97,7 +97,7 @@ POST /api/login
 }
 ```
 
-#### Response Sukses
+#### Response Success
 
 ```json
 {
@@ -108,7 +108,7 @@ POST /api/login
 }
 ```
 
-#### Response Gagal
+#### Response Failed
 
 ```json
 {
@@ -118,13 +118,13 @@ POST /api/login
 }
 ```
 
-### Logout Pengguna
+### User Logout
 
 ```http
 POST /api/logout
 ```
 
-#### Response Sukses
+#### Response Success
 
 ```json
 {
@@ -132,29 +132,22 @@ POST /api/logout
 }
 ```
 
-## Validasi Input
+## Input Validation
 
-Ini spesifikasi dari setiap endpoint autentikasi. Silahkan dibaca temen-temen:
+Here are the specifications of each authentication endpoint. Please read it, friends:
 
-### Skema Validasi Registrasi dan Login
+### Registration and Login Validation Scheme
 
-| Field    | Tipe   | Aturan Validasi      | 
-|----------|--------|----------------------|
-| Email    | String | - Wajib diisi        | 
-|          |        | - Format email valid | 
-| Password | String | - Wajib diisi        | 
-|          |        | - Minimal 6 karakter |
+| Field    | Type   | Validation Rules       | 
+|----------|--------|------------------------|
+| Email    | String | - Required             | 
+|          |        | - Valid email format   | 
+| Password | String | - Required             | 
+|          |        | - Minimum 6 characters |
 
-### Skema Validasi Reset Password
+## Example of Using News Endpoints
 
-| Field | Tipe   | Aturan Validasi      | 
-|-------|--------|----------------------|
-| Email | String | - Wajib diisi        | 
-|       |        | - Format email valid | 
-
-## Contoh Penggunaan Endpoint Berita
-
-### Mendapatkan Daftar Artikel
+### Get Article List
 
 ```http
 GET /api/organik?page=1
@@ -162,10 +155,10 @@ GET /api/organik?page=1
 
 #### Parameter
 
-| Parameter  | Tipe     | Deskripsi                                               | Wajib/Opsional        |
-|------------|----------|---------------------------------------------------------|-----------------------|
-| `endpoint` | `string` | Nama kategori berita (organik, non-organik, daur-ulang) | **Wajib**             |
-| `page`     | `number` | Nomor halaman untuk pagination                          | Opsional (default: 1) |
+| Parameter  | Type     | Description                                           | Required/Optional     |
+|------------|----------|-------------------------------------------------------|-----------------------|
+| `endpoint` | `string` | News category name (organik, non-organik, daur-ulang) | **Required**          |
+| `page`     | `number` | Page numbers for pagination                           | Optional (default: 1) |
 
 #### Response Body
 
@@ -185,23 +178,23 @@ GET /api/organik?page=1
 }
 ```
 
-#### Poin Penting
+#### Key Points
 
-- value `articleLink` digunakan untuk parameter `articleLink` pada endpoint `detail`
-- contoh nya bisa dilihat pada endpoint dibawah ini
+- value `articleLink` is used for the `articleLink` parameter on the `detail` endpoint
+- an example can be seen in the endpoint below
 
-### Mendapatkan Detail Artikel
+### Get Article Details
 
 ```http
-GET /api/detail?articleLink=https://www.contoh-artikel
+GET /api/detail?articleLink=https://www.example.com
 ```
 
-#### Parameter Detail
+#### Detail Parameters
 
-| Parameter     | Tipe     | Deskripsi                                                                              | Wajib/Opsional |
-|---------------|----------|----------------------------------------------------------------------------------------|----------------|
-| `articleLink` | `string` | Digunakan untuk menampung `articleLink`                                                | **Wajib**      |
-| `full_url`    | `string` | URL lengkap artikel, value bisa dilihat di response list artikel, bagian `articleLink` | **Wajib**      |
+| Parameter     | Type     | Description                                                                                    | Required/Optional |
+|---------------|----------|------------------------------------------------------------------------------------------------|-------------------|
+| `articleLink` | `string` | Used to hold `articleLink`                                                                     | **Required**      |
+| `full_url`    | `string` | Full URL of the article, value can be seen in the article response list, `articleLink` section | **Required**      |
 
 #### Response Body
 
@@ -221,18 +214,18 @@ GET /api/detail?articleLink=https://www.contoh-artikel
 
 ## Error Handling
 
-### Jenis Error yang Mungkin Terjadi
+### Types of Errors That May Occur
 
-| Kode Status | Deskripsi                           |
-|-------------|-------------------------------------|
-| 200         | Berhasil                            |
-| 400         | Parameter salah atau tidak valid    |
-| 401         | Tidak terautentikasi                |
-| 404         | Artikel atau sumber tidak ditemukan |
-| 422         | Validasi data gagal                 |
-| 500         | Kesalahan server internal           |
+| Status Code | Description                    |
+|-------------|--------------------------------|
+| 200         | Success                        |
+| 400         | Invalid or incorrect parameter |
+| 401         | Not authenticated              |
+| 404         | Article or source not found    |
+| 422         | Data validation failed         |
+| 500         | Internal server error          |
 
-### Contoh Response Error
+### Response Error Example
 
 ```json
 {
@@ -241,14 +234,14 @@ GET /api/detail?articleLink=https://www.contoh-artikel
 }
 ```
 
-## Catatan Tambahan
+## Additional Notes
 
-- Daftar endpoint dapat berubah sewaktu-waktu
-- Dokumentasi akan terus diperbarui seiring perkembangan proyek
+- The list of endpoints is subject to change at any time
+- Documentation will continue to be updated as the project progresses.
 
-## Kontributor
+## Contributors
 
-### Tim Capstone Bangkit Cloud Computing ReTo
+### Team Capstone Bangkit Cloud Computing ReTo
 
 <table>
   <tr>
@@ -259,4 +252,4 @@ GET /api/detail?articleLink=https://www.contoh-artikel
 
 ---
 
-Selamat mengerjakan! Semoga bantal kalian bisa dingin terus yaa wkwkw. 🌱♻️
+Good luck! Hopefully your pillows can stay cool forever, haha. 🌱♻️
