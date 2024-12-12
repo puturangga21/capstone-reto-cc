@@ -5,6 +5,6 @@ import verifyToken from '../middleware/index.js';
 
 const router = express.Router();
 
-router.get('/api/detail', verifyToken, getDetailNews);
+router.get('/api/detail', getDetailNews);
 
 export default router;

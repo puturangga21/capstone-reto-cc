@@ -5,6 +5,6 @@ import verifyToken from '../middleware/index.js';
 
 const router = express.Router();
 
-router.get('/api/non-organik', verifyToken, getNonOrganic);
+router.get('/api/non-organik', getNonOrganic);
 
 export default router;

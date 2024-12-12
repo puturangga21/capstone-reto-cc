@@ -4,6 +4,6 @@ import { getAllDaurUlang } from '../controllers/daur-ulang.controller.js';
 
 const router = express.Router();
 
-router.get('/api/daur-ulang', verifyToken, getAllDaurUlang);
+router.get('/api/daur-ulang', getAllDaurUlang);
 
 export default router;
