@@ -18,7 +18,7 @@ Good luck with your work, friends! 🌍♻️ Don't forget to get enough rest! �
 ### Base URL
 
 ```http
-http://34.101.128.116/api
+https://www.reto.my.id/api
 ```
 
 ## Endpoint Reference
