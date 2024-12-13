@@ -23,25 +23,24 @@ https://www.reto.my.id/api
 
 ## Endpoint Reference
 
-### Daftar Endpoint Tersedia
+### List of Available Endpoints
 
 #### News Endpoint
 
-| Endpoint               | Metode | Deskripsi                        |
-|------------------------|--------|----------------------------------|
-| `/organik`             | GET    | Daftar berita sampah organik     |
-| `/non-organik`         | GET    | Daftar berita sampah non-organik |
-| `/daur-ulang`          | GET    | Daftar berita daur ulang         |
-| `/detail?articleLink=` | GET    | Detail berita sampah             |
+| Endpoint               | Method | Description                    |
+|------------------------|--------|--------------------------------|
+| `/organik`             | GET    | List of organic waste news     |
+| `/non-organik`         | GET    | List of non-organic waste news |
+| `/daur-ulang`          | GET    | Recycling news list            |
+| `/detail?articleLink=` | GET    | Waste news details             |
 
 #### Authentication Endpoint
 
-| Endpoint          | Metode | Deskripsi                  | Request Body          |
-|-------------------|--------|----------------------------|-----------------------|
-| `/register`       | POST   | Mendaftarkan user baru     | `{ email, password }` |
-| `/login`          | POST   | Login pengguna             | `{ email, password }` |
-| `/logout`         | POST   | Logout pengguna            | Tidak memerlukan body |
-| `/reset-password` | POST   | Kirim email reset password | `{ email }`           |
+| Endpoint    | Method | Description            | Request Body          |
+|-------------|--------|------------------------|-----------------------|
+| `/register` | POST   | Registering a new user | `{ email, password }` |
+| `/login`    | POST   | User Login             | `{ email, password }` |
+| `/logout`   | POST   | User Logout            | No body required      |
 
 ## Authentication Endpoint Usage Examples
 
