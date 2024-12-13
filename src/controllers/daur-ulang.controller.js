@@ -7,11 +7,14 @@ export const getAllDaurUlang = async (req, res) => {
 
   try {
     // buka browser dan buka tab baru
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
+      args: ['--disable-gpu', '--no-sandbox', '--disable-setuid-sandbox', '--no-zygote'],
+    });
     const pageInstance = await browser.newPage();
 
     // pergi ke url tujuan
-    await pageInstance.goto(url);
+    await pageInstance.goto(url, { waitUntil: 'networkidle2' });
 
     // ambil data
     const articles = await pageInstance.$$eval('article', (articles) => {

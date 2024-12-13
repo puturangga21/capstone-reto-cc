@@ -13,11 +13,14 @@ export const getDetailNews = async (req, res) => {
 
   try {
     // buka browser dan buka tab baru
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
+      args: ['--disable-gpu', '--no-sandbox', '--disable-setuid-sandbox', '--no-zygote'],
+    });
     const pageInstance = await browser.newPage();
 
     // pergi ke url tujuan
-    await pageInstance.goto(articleLink);
+    await pageInstance.goto(articleLink, { waitUntil: 'networkidle2' });
 
     // ambil data
     const title = await pageInstance.$eval('article > header > h1', (el) => el.innerText);
